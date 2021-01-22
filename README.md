@@ -1,10 +1,10 @@
 # Getting Started with this project
 
-This project contains multiple stack on multiple services
+This project contains rich JS stack build on multiple services
 
 ## Front-end
 
-react.js next.js tailwindcss
+react.js, next.js, tailwindcss
 
 ## Back-end
 
@@ -21,7 +21,7 @@ and also make sure your `docker-compose` support for v`3.8`
 
 ## Build services
 
-before building it, make sure you have configured `.env` variables avaiable such as
+before building it, make sure you have configured `.env` variables available such as
 ```
 NODE_PORT=8000
 REACT_PORT=5000
