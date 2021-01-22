@@ -16,7 +16,7 @@ Docker, docker-compose
 
 # How to start
 
-Make sure you have Docker and docker-compose installed on your machine,\ 
+Make sure you have Docker and docker-compose installed on your machine,
 and also make sure your `docker-compose` support for v`3.8`
 
 ## Build services
