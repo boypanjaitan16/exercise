@@ -1,65 +1,34 @@
+import React from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import {UserOutlined, GoogleOutlined} from '@ant-design/icons'
 
-export default function Home() {
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+export default function Index(){
+    return (
+        <>
+        <Head>
+            <title>Welcome to {process.env.NEXT_PUBLIC_APP_NAME}</title>
+        </Head>
+        <div className='grid grid-cols-1 md:grid-cols-12 mx-5 md:mx-16 lg:mx-32 h-screen items-center'>
+            <div className='md:col-span-8'>
+                <h2 className='text-3xl font-semibold'>Welcome to {process.env.NEXT_PUBLIC_APP_NAME}</h2>
+                <Image src='/home.png' className='max-w-sm' width={410} height={300}/>
+            </div>
+            <div className='md:col-span-4 flex space-y-3 flex-col'>
+                <p className='text-gray-500'>You can start tracking your activities easily from now for the future you</p>
+                <Link href='/auth/sign-in'>
+                    <a className='w-full flex items-center py-2 px-3 rounded-md border-2 border-indigo-500 hover:border-indigo-600 bg-white'>
+                        <span className='text-sm flex-grow'>Sign-in with username</span>
+                        <UserOutlined/>
+                    </a>
+                </Link>
+                <a href='#' className='w-full flex items-center py-2 px-3 rounded-md bg-indigo-500 hover:bg-indigo-600 text-white'>
+                    <span className='text-sm flex-grow'>Sign-in with Google</span>
+                    <GoogleOutlined/>
+                </a>
+            </div>
         </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
+        </>
+    )
 }

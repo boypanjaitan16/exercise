@@ -1,12 +1,24 @@
 import React from 'react'
-import SignIn from './pages/signIn'
+import {Switch, Route, HashRouter} from 'react-router-dom'
+import PrivateRoute from './components/PrivateRoute'
+import GlobalAlert from './components/Alert'
 
+import AuthRoutes from './pages/auth'
+import Home from './pages/Home'
+import AccountRoutes from './pages/account'
 
 function App() {
   
 
   return (
-      <SignIn/>
+      <HashRouter>
+        <GlobalAlert/>
+        <Switch>
+          <Route exact path={'/'} component={Home}/>
+          <Route path={'/auth'} component={AuthRoutes}/>
+          <PrivateRoute path={'/account'} component={AccountRoutes}/>
+        </Switch>
+      </HashRouter>
   );
 }
 

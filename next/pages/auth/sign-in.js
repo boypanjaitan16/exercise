@@ -2,6 +2,11 @@ import React, {useState} from 'react'
 import {useForm} from 'react-hook-form'
 import {message} from 'antd'
 import Loader from '../../components/Loader'
+import {UserOutlined} from '@ant-design/icons'
+import {ArrowBack} from '@material-ui/icons'
+import Link from 'next/link'
+import Head from 'next/head'
+import axios from 'axios'
 
 export default function SignIn(){
     const {register, errors, handleSubmit}  = useForm()
@@ -10,7 +15,7 @@ export default function SignIn(){
     const submit = (params) => {
         setLoading(true)
         
-        window.axios.post('/auth/login', params)
+        axios.post('/auth/login', params)
             .then(res => {
                 const {data}    = res.data
 
@@ -24,11 +29,23 @@ export default function SignIn(){
     }
 
     return (
+        <>
+        <Head>
+            <title>Sign-in to {process.env.NEXT_PUBLIC_APP_NAME}</title>
+        </Head>
         <div className='flex w-screen h-screen place-items-center items-center flex-col'>
-        
-            <form onSubmit={handleSubmit(submit)} className='border-2 relative border-gray-500 mx-6 my-auto md:m-auto w-full md:w-5/12 lg:w-4/12 rounded-lg p-8 h-auto'>
+            <form onSubmit={handleSubmit(submit)} className='md:border-2 relative md:border-gray-300 mx-6 my-auto md:m-auto w-full md:w-5/12 lg:w-4/12 rounded-lg p-8 h-auto'>
                 <Loader loading={isLoading}/>
-                <h4 className='text-2xl mb-8 mt-0'>Sign-in to {process.env.APP_NAME}</h4>
+                    
+                <Link href='/'>
+                    <a className='w-auto items-center rounded-full px-3 py-2 bg-gray-200'>
+                        <ArrowBack className='mr-1'/> Back to home
+                    </a>
+                </Link>
+
+                <h4 className='mt-5 text-2xl mb-8 flex items-center'>
+                    <UserOutlined className='mr-3'/> Sign-in to {process.env.NEXT_PUBLIC_APP_NAME}
+                </h4>
                 <div className='mb-4'>
                     <label htmlFor='username' className='text-sm'>Username</label>
                     <input 
@@ -60,5 +77,6 @@ export default function SignIn(){
                 <button className='w-full focus:outline-none hover:bg-blue-500 text-xl text-white text-center font-semibold bg-blue-600 py-3 px-4 rounded-lg'>Sign In</button>
             </form>
         </div>
+        </>
     )
 }

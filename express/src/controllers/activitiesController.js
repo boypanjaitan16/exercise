@@ -19,13 +19,13 @@ exports.create = async (req, res) => {
         const errors    = validationResult(req)
 
         if(!errors.isEmpty()){
-            responseFailed(res, errors)
+            responseFailed(res, errors.array())
             return;
         }
 
         const {userId}  = req.user
         const {name, description, timeStart, timeEnd}   = req.body
-        const activityModel     = new Activity({userId, name, description})
+        const activityModel     = new Activity({userId, name, description, timeStart, timeEnd})
     
         const activity  = await activityModel.save()
 
@@ -38,7 +38,7 @@ exports.create = async (req, res) => {
 
 exports.createValidation = [
     body('name', 'Activity name is required').notEmpty(),
-    body('description', 'Description is required').notEmpty(),
+    // body('description', 'Description is required').notEmpty(),
     body('timeStart', 'Time start is required').notEmpty(),
     body('timeEnd', 'Time end is required').notEmpty()
 ]
@@ -51,6 +51,20 @@ exports.update = (req, res) => {
 
 }
 
-exports.destroy = (req, res) => {
+exports.destroy = async (req, res) => {
+    try{
+        const id    = req.params.id
+        const obj   = await Activity.findOne({_id: id})
 
+        obj.remove()
+
+        const {userId}      = req.user
+        const activities    = await Activity.find({userId})
+
+        responseSuccess(res, activities)
+    }
+    catch(err){
+        responseError(res, err)
+    }
+    
 }

@@ -1,7 +1,9 @@
 const {body, check, validationResult} = require('express-validator')
 const {responseError, responseSuccess, responseFailed, generateAccessToken} = require('../helpers/authHelper')
+const {userParser}    = require('../helpers/modelHelper')
 const User      = require('../models/User')
 const bycript   = require('bcryptjs')
+const fs        = require('fs')
 
 exports.login = async (req, res) => {
     try{
@@ -12,22 +14,22 @@ exports.login = async (req, res) => {
             return;
         }
         
-        const {username, password}  = req.body
-        const user  = await User.findOne({ username })
+        const {email, password}  = req.body
+        const user  = await User.findOne({ email })
 
         if(!user){
-            throw new Error('Sorry, we can\'t find an user with that username and password {ERR_CODE:1}')
+            throw new Error('Sorry, we can\'t find an user with this credential {ERR_CODE:1}')
         }
 
         const matched   = await bycript.compare(password, user.password);
 
         if(matched === false){
-            throw new Error('Sorry, we can\'t find an user with that username and password {ERR_CODE:2}')
+            throw new Error('Sorry, we can\'t find an user with this credential {ERR_CODE:2}')
         }
 
         responseSuccess(res, {
             token   : generateAccessToken(user.id),
-            user
+            user    : await userParser(user, req)
         })
     }
     catch(err){
@@ -36,7 +38,7 @@ exports.login = async (req, res) => {
 }
 
 exports.loginValidation = [
-    body('username', 'Username is required').notEmpty(),
+    body('email', 'Email is required').notEmpty().isEmail(),
     body('password', 'Password required').notEmpty()
 ]
 
@@ -50,10 +52,10 @@ exports.register = async (req, res) => {
         }
 
 
-        const {username, name, password}    = req.body
+        const {email, name, password}    = req.body
 
         const hashedPassword    = await bycript.hash(password, 10)
-        const userModel         = new User({ username, name, password : hashedPassword }) 
+        const userModel         = new User({ email, name, password : hashedPassword }) 
 
         const user  = await userModel.save();
         
@@ -68,9 +70,9 @@ exports.register = async (req, res) => {
 }
 
 exports.registerValidation = [
-    body('username', 'Username is required').notEmpty(),
+    body('email', 'Email is required').notEmpty(),
     body('name', 'Name is required').notEmpty(),
-    body('password', 'Password is required').notEmpty().isLength({min: 5}).bail().withMessage('Password need more than six chars'),
+    body('password', 'Password is required').notEmpty().isLength({min: 6}).bail().withMessage('Password need to be six or more chars'),
     body('password_confirmation', 'Password Confirmation is required').notEmpty().bail().custom((value, { req }) => {
         if (value !== req.body.password) {
             
@@ -78,10 +80,10 @@ exports.registerValidation = [
         }
         return true
     }),
-    body('username').bail().custom(username => {
-        return User.findOne({username}).then(user => {
+    body('email').bail().custom(email => {
+        return User.findOne({email}).then(user => {
             if(user){
-                return Promise.reject('Username already taken')
+                return Promise.reject('Email already used')
             }
         })
     })

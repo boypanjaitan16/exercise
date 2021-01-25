@@ -12,7 +12,7 @@ const activitySchema    = new Schema({
         type        : String
     },
     description     : {
-        required    : true,
+        required    : false,
         type        : String
     },
     timeStart   : {

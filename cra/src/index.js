@@ -7,7 +7,7 @@ import Cookies from 'js-cookie'
 import reportWebVitals from './reportWebVitals';
 import configureStore from './redux/store'
 import {Provider} from 'react-redux'
-import {setSession} from './redux/action'
+import {setSession, clearSession} from './redux/action'
 
 window.axios = require('axios');
 
@@ -18,6 +18,24 @@ window.axios.defaults.headers.common['Content-Type'] = 'application/json';
 window.axios.defaults.baseURL = 'http://localhost:8000/api';
 
 const store     = configureStore()
+
+window.axios.interceptors.response.use(function (response) {
+  // Do something with response data
+  return response;
+}, function (error) {
+  // Do something with response error
+  if(error.response.status === 401){
+    store.dispatch(clearSession())
+  }
+  
+  store.dispatch({
+    type  : 'SET_ERROR',
+    message : error.response?.data?.message
+  })
+
+  return Promise.reject(error);
+});
+
 const session   = Cookies.getJSON(`${process.env.REACT_APP_APP_NAME}_session`)
 
 if(session){

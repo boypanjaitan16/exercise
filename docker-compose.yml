@@ -13,18 +13,18 @@ services:
     networks:
       - exercise-app-network
 
-  next:
-    build:
-      context: ./next
-      target: dev
-    volumes:
-      - ./next:/src
-    ports:
-      - "${NEXT_PORT:-3000}:3000"
-    environment:
-      APP_NAME: ${APP_NAME}
-    networks:
-      - exercise-app-network
+  # next:
+  #   build:
+  #     context: ./next
+  #     target: dev
+  #   volumes:
+  #     - ./next:/src
+  #   ports:
+  #     - "${NEXT_PORT:-3000}:3000"
+  #   environment:
+  #     REACT_APP_APP_NAME: ${APP_NAME}
+  #   networks:
+  #     - exercise-app-network
       
   express:
     build:
