@@ -82,7 +82,7 @@ function Activities({session}){
             {list.length === 0 ? (
                 <div className='flex justify-center items-center h-full'>
                     <Empty
-                    image={Empty.PRESENTED_IMAGE_SIMPLE} 
+                    // image={Empty.PRESENTED_IMAGE_SIMPLE} 
                     description="You don't have any activity recorded yet"/>
                 </div>
             ): (
@@ -97,7 +97,7 @@ function Activities({session}){
                                     </span>
                                 </div>
                                 <div style={{ right: -20}} className='flex-none text-right absolute'>
-                                    <span className='bg-blue-500 text-white text-xs rounded-l-full py-1 px-3'>{parseDuration(item.timeStart, item.timeEnd)}</span>
+                                    <span className='bg-blue-400 text-white text-xs rounded-l-full py-1 px-3'>{parseDuration(item.timeStart, item.timeEnd)} long</span>
                                 </div>
                             </div>
                             <hr/>

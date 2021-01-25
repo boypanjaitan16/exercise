@@ -17,10 +17,10 @@ function Home({session}){
                     <span className='text-sm flex-grow'>{session ? `Go to your account ${session.user.name}` : 'Sign-in with email'}</span>
                     <UserOutlined/>
                 </a>
-                <a href='#/' className='w-full flex items-center py-2 px-3 rounded-md bg-indigo-500 hover:bg-indigo-600 hover:text-white text-white'>
+                {/* <a href='#/' className='w-full flex items-center py-2 px-3 rounded-md bg-indigo-500 hover:bg-indigo-600 hover:text-white text-white'>
                     <span className='text-sm flex-grow'>Sign-in with Google</span>
                     <GoogleOutlined/>
-                </a>
+                </a> */}
             </div>
         </div>
         </>

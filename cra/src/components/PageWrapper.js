@@ -5,7 +5,9 @@ import {
     UserOutlined, 
     LogoutOutlined, 
     SettingOutlined, 
-    CopyrightCircleOutlined
+    CopyrightCircleOutlined,
+    EditOutlined,
+    MenuOutlined
 } from '@ant-design/icons'
 import {
     Dialog, 
@@ -31,6 +33,7 @@ function PageWrapper({user, children}){
     const [sideWidth, setSideWidth]     = useState(0)
     const [sideHeight, setSideHeight]   = useState(0)
     const [openLogoutModal, setLogoutModal] = useState(false)
+    const [openDrawer, setOpenDrawer]   = useState(false)
     const [sideLinks, setSideLinks] = useState([
         {
             title   : 'Dashboard',
@@ -82,6 +85,7 @@ function PageWrapper({user, children}){
             return { ...item, active : true }
         })
         setSideLinks(newLinks)
+        setOpenDrawer(false)
     }
 
     return (
@@ -109,19 +113,34 @@ function PageWrapper({user, children}){
                     </Button>
                 </DialogActions>
             </Dialog>
-            <nav ref={navRef} className='w-full fixed top-0 z-50 bg-white flex px-5 py-3 md:px-8 md:py-4 border-b border-gray-300'>
-                <div className='flex-grow flex items-center'>
-                    <h4 className='text-2xl mb-0 font-semibold'>{process.env.REACT_APP_APP_NAME}</h4>
+            <nav ref={navRef} className='w-full items-stretch fixed top-0 z-50 bg-blue-400 md:bg-white flex px-5 py-3 md:px-8 md:py-4 md:border-b border-gray-300'>
+                {/* <div className=''> */}
+                    <button 
+                        onClick={() => setOpenDrawer(!openDrawer)} 
+                        className='text-white md:hidden flex-none flex items-center focus:outline-none text-2xl'>
+                        <MenuOutlined/>
+                    </button>
+                {/* </div> */}
+                <div className='flex-grow flex justify-items-center'>
+                    <h4 className='text-lg md:text-2xl w-full text-white md:text-black mb-0 font-semibold text-center md:text-left'>{process.env.REACT_APP_APP_NAME}</h4>
                 </div>
-                <div className='flex-none ml-5'>
+                <div className='flex-none md:ml-5 flex items-center'>
                     <a 
                         href='#/account/add-record' 
                         onClick={() => clickSideLink(-1)} 
-                        className='rounded-full block bg-blue-400 px-5 py-2 hover:bg-blue-500 hover:text-white text-white'>Add Record</a>
+                        className='rounded-full hidden  sm:block bg-blue-400 px-5 py-2 hover:bg-blue-500 hover:text-white text-white'>
+                        Add Record
+                    </a>
+                    <a 
+                        onClick={() => clickSideLink(-1)}
+                        className='md:hidden text-2xl text-white flex items-center hover:text-white' 
+                        href='#/account/add-record'>
+                        <EditOutlined/>
+                    </a>
                 </div>
             </nav>
             <div style={{ paddingTop: navHeight}} className='relative block'>
-                <div ref={sideRef} style={{height: `calc(100vh - ${navHeight+2}px)`}} className='fixed hidden sm:flex sm:flex-col w-8/12 sm:w-4/12 md:w-3/12 bg-white border-r border-gray-300 p-3 md:p-5'>
+                <div ref={sideRef} style={{height: `calc(100vh - ${navHeight+2}px)`}} className={`fixed ${!openDrawer ? 'hidden md:flex' : 'flex'} z-40 flex-col w-8/12 sm:w-4/12 md:w-3/12 bg-white border-r border-gray-300 p-3 md:p-5`}>
                     <ul className='flex-grow'>
                         {sideLinks.map((item, index) => (
                             <li key={index}>
@@ -142,7 +161,7 @@ function PageWrapper({user, children}){
                     </div>
                 </div>
                 <div 
-                    style={{marginLeft: sideWidth, height: sideHeight}} 
+                    style={{marginLeft: openDrawer ? 0 : sideWidth, height: sideHeight === 0 ? `calc(100vh - ${navHeight}px)` : sideHeight}} 
                     className='flex-grow p-5 md:pr-8 block'>
                     {children}
                 </div>
