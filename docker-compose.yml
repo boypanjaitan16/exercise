@@ -10,6 +10,7 @@ services:
       - "${REACT_PORT:-5000}:3000"
     environment:
       REACT_APP_APP_NAME: ${APP_NAME}
+      REACT_APP_API_BASE_URL: http://127.0.0.1:${NODE_PORT}/api
     networks:
       - exercise-app-network
 
@@ -37,10 +38,11 @@ services:
     environment:
       NODE_ENV: development
       DEBUG: nodejs-docker-express:*
-      NODE_PORT: ${NODE_PORT}
+      PORT: ${NODE_PORT}
       MONGO_USERNAME: ${MONGO_USERNAME}
       MONGO_PASSWORD: ${MONGO_PASSWORD}
       MONGO_DB: ${MONGO_DB}
+      ATLAS_URI: ${ATLAS_URI}
       MONGO_HOST: mongo
       ACCESS_TOKEN_SECRET: ${ACCESS_TOKEN_SECRET}
     networks:

@@ -1,3 +1,7 @@
 mongo/*
 **/node_modules
 .env
+express/.git
+cra/.git
+# Local Netlify folder
+.netlify

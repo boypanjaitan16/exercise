@@ -1,7 +1,7 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import {useHistory} from 'react-router-dom'
 import {connect} from 'react-redux'
-import { DatePicker, Button, message } from 'antd';
+import { DatePicker, Button, message, Select } from 'antd';
 import {useForm} from 'react-hook-form'
 
 
@@ -10,8 +10,14 @@ function AddRecord({session}){
 
     const history   = useHistory()
     const [loading, setLoading]     = useState(false)
+    const [categories, setCategories]   = useState({
+        loading     : false,
+        data        : [],
+        selected    : null
+    })
     const [timeRange, setTimeRange] = useState([])
-    const {handleSubmit, errors, register, reset, trigger}  = useForm()
+    const { Option } = Select;
+    const {handleSubmit, errors, register, trigger}  = useForm()
 
     const onChange = (value, dateString) => {
         console.log('Selected Time: ', value);
@@ -23,12 +29,17 @@ function AddRecord({session}){
         }, 100)
     }
 
+    const onSelectChange = (value) => {
+        console.log('selected', value)
+    }
+
     const onSubmit = (params) => {
         const {name, description}   = params
 
         setLoading(true)
         window.axios.post('/activities/create', {
             name, description,
+            categoryId  : categories.selected,
             timeStart   : timeRange[0],
             timeEnd     : timeRange[1]
         })
@@ -42,6 +53,17 @@ function AddRecord({session}){
                 setLoading(false)
             })
     }
+
+    useEffect(() => {
+        setCategories({...categories, loading : true})
+        window.axios.get('/categories')
+            .then(res => {
+                const {data}    = res.data
+                
+                setCategories({data, loading: false})
+            })
+            .catch(() => setCategories({...categories, loading: false}))
+    }, [])
 
     return (
             <div className='h-full'>
@@ -76,10 +98,32 @@ function AddRecord({session}){
                                 showTime={{ format: 'HH:mm:ss' }}
                                 // value={timeRange}
                                 // format='YYYY-MM-DDTHH:MM:SSZ'
+                                className='w-full md:w-8/12 lg:w-6/12'
                                 onChange={onChange}
                                 />
                         </div>
                         {errors.time_range && (<small className='text-red-500'>{errors.time_range.message}</small>)}
+                    </div>
+                    <div>
+                        <label>Category (optional)</label>
+                        <div className='mt-1'>
+                            <Select
+                                showSearch
+                                loading={categories.loading}
+                                className='w-full md:w-8/12 lg:w-6/12'
+                                placeholder="Select a person"
+                                optionFilterProp="children"
+                                onChange={(selected) => setCategories({...categories, selected})}
+                                filterOption={(input, option) =>
+                                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                }
+                            >
+                                {categories.data.map(item => (
+                                    <Option key={item._id} value={item._id}>{item.name}</Option>
+                                ))}
+                            </Select>
+                        </div>
+                        
                     </div>
                     <div>
                         <label>Description (optional)</label>

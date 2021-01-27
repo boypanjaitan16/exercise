@@ -14,9 +14,11 @@ const options = {
 
 const {MONGO_DB, MONGO_HOST, MONGO_USERNAME, MONGO_PASSWORD}    = process.env
 
-const uri = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOST}:27017/${MONGO_DB}?connectTimeoutMS=1000&bufferCommands=false&authSource=admin`
+const prodURI   = process.env.ATLAS_URI; 
+const devURI    = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOST}:27017/${MONGO_DB}?connectTimeoutMS=1000&bufferCommands=false&authSource=admin`
+const URI       = process.env.NODE_ENV === 'production' ? prodURI : devURI;
 
-mongoose.connect(uri, options)
+mongoose.connect(URI, options)
     .then(() => {
         console.log('MongoDB connected succesfully')
     })

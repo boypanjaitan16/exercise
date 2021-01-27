@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {UserOutlined, GoogleOutlined} from '@ant-design/icons'
+import {UserOutlined} from '@ant-design/icons'
 
 function Home({session}){
     return (
@@ -8,7 +8,7 @@ function Home({session}){
         <div className='grid grid-cols-1 md:grid-cols-12 mx-5 md:mx-16 lg:mx-32 h-screen items-center'>
             <div className='md:col-span-8'>
                 <h2 className='text-3xl font-semibold'>Welcome to {process.env.REACT_APP_APP_NAME}</h2>
-                <img src='/images/home.png' alt='Home banner' className='max-w-sm'/>
+                <img src='/images/home.png' alt='Home banner' className='max-w-full sm:w-10/12 md:w-5/12'/>
             </div>
             <div className='md:col-span-4 flex space-y-3 flex-col'>
                 <p className='text-gray-500'>You can start tracking your activities easily from now for the future you</p>

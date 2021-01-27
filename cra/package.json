@@ -18,6 +18,7 @@
     "axios": "^0.21.1",
     "date-fns": "^2.16.1",
     "js-cookie": "^2.2.1",
+    "netlify-cli": "^3.4.2",
     "next": "^10.0.5",
     "postcss": "^7.0.35",
     "react": "^17.0.1",
@@ -35,7 +36,8 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "netlify": "netlify"
   },
   "eslintConfig": {
     "extends": [

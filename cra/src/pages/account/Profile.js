@@ -31,7 +31,7 @@ function Profile({user}){
         <>
             {show && (
                 <div className='fixed inset-0 z-50 bg-black bg-opacity-40 flex items-center justify-center'>
-                    <div className='bg-white relative rounded-lg border-2 border-gray-700 p-5 md:p-10'>
+                    <div className='bg-white mx-5 md:mx-0 relative rounded-lg border-2 border-gray-700 px-5 py-10 md:p-10'>
                         <button onClick={() => toogleModal(false)}
                             style={{ top: -10, right: -10}}
                             className='absolute focus:outline-none bg-gray-700 w-8 h-8 rounded-full overflow-hidden'>
@@ -96,7 +96,7 @@ function Profile({user}){
                             </FormGroup>
 
                             <div className='text-right mt-5'>
-                                <Button loading={loading} disabled={loading} shape='round' htmlType='submit' type="primary">
+                                <Button loading={loading} shape='round' htmlType='submit' type="primary">
                                     Save Changes
                                 </Button>
                             </div>
@@ -112,7 +112,7 @@ function Profile({user}){
                 </div>
                 
                 <h3 className='font-semibold text-2xl mb-0 mt-10'>{user.name}</h3>
-                <p className='text-gray-500'>{user.email}</p>
+                <p className='text-gray-500 mb-3'>{user.email}</p>
                 <div className='flex items-center justify-center space-x-2'>
                     <Button href='#/account/profile/edit' type='default' shape='round'>Edit Profile</Button>
                     <Button onClick={() => toogleModal(true)} type='dashed' shape='round'>

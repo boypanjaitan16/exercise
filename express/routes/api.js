@@ -5,9 +5,14 @@ const {login, loginValidation, register, registerValidation} = require('../src/c
 const {verifyToken} = require('../src/middlewares/authMiddleware')
 const activitiesController  = require('../src/controllers/activitiesController')
 const profileController     = require('../src/controllers/profileController')
+const categoryController    = require('../src/controllers/categoryController')
 
 router.post('/auth/login', loginValidation, login)
 router.post('/auth/register', registerValidation, register)
+
+router.use('/categories', verifyToken)
+router.get('/categories', categoryController.index)
+router.post('/categories/create', categoryController.createValidation, categoryController.create)
 
 router.use('/activities', verifyToken)
 router.get('/activities', activitiesController.index)

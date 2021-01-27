@@ -17,7 +17,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(cors({
-  origin  : ['http://127.0.0.1:5000', 'http://127.0.0.1:8000', 'http://127.0.0.1:3000'],
+  origin  : ['http://127.0.0.1:5000', 'http://127.0.0.1:8000', 'http://127.0.0.1:3000', 'https://boy-activity-tracker.netlify.app'],
   credentials : true
 }))
 app.use(logger('dev'));
@@ -40,7 +40,6 @@ app.use(function(err, req, res, next) {
     responseError(res, err, err.status || 500)
     return;
   }
-
   
   // set locals, only providing error in development
   res.locals.message = err.message;

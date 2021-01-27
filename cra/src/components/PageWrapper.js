@@ -6,7 +6,8 @@ import {
     LogoutOutlined, 
     SettingOutlined, 
     CopyrightCircleOutlined,
-    EditOutlined,
+    FolderViewOutlined,
+    PlusCircleTwoTone,
     MenuOutlined
 } from '@ant-design/icons'
 import {
@@ -40,6 +41,11 @@ function PageWrapper({user, children}){
             link    : '#/account',
             active  : true,
             icon    : <HomeOutlined/>
+        },
+        {
+            title   : 'Category',
+            link    : '#/account/category',
+            icon    : <FolderViewOutlined/>
         },
         {
             title   : 'Activities',
@@ -113,7 +119,7 @@ function PageWrapper({user, children}){
                     </Button>
                 </DialogActions>
             </Dialog>
-            <nav ref={navRef} className='w-full items-stretch fixed top-0 z-50 bg-blue-400 md:bg-white flex px-5 py-3 md:px-8 md:py-4 md:border-b border-gray-300'>
+            <nav ref={navRef} className='w-full items-stretch fixed top-0 z-50 bg-blue-500 md:bg-white flex px-5 py-3 md:px-8 md:py-4 md:border-b border-gray-300'>
                 {/* <div className=''> */}
                     <button 
                         onClick={() => setOpenDrawer(!openDrawer)} 
@@ -121,21 +127,23 @@ function PageWrapper({user, children}){
                         <MenuOutlined/>
                     </button>
                 {/* </div> */}
-                <div className='flex-grow flex justify-items-center'>
-                    <h4 className='text-lg md:text-2xl w-full text-white md:text-black mb-0 font-semibold text-center md:text-left'>{process.env.REACT_APP_APP_NAME}</h4>
+                <div className='flex-grow flex items-center'>
+                    <h4 className='text-lg md:text-xl flex items-center justify-center md:justify-start w-full text-white md:text-black mb-0 font-semibold'>
+                        {process.env.REACT_APP_APP_NAME}
+                    </h4>
                 </div>
                 <div className='flex-none md:ml-5 flex items-center'>
                     <a 
                         href='#/account/add-record' 
                         onClick={() => clickSideLink(-1)} 
-                        className='rounded-full hidden  sm:block bg-blue-400 px-5 py-2 hover:bg-blue-500 hover:text-white text-white'>
-                        Add Record
+                        className='rounded-full hidden sm:flex sm:items-center bg-blue-500 px-5 py-2 hover:bg-blue-600 hover:text-white text-white'>
+                        <PlusCircleTwoTone className='mr-2'/> Add Activity
                     </a>
                     <a 
                         onClick={() => clickSideLink(-1)}
                         className='md:hidden text-2xl text-white flex items-center hover:text-white' 
                         href='#/account/add-record'>
-                        <EditOutlined/>
+                        <PlusCircleTwoTone/>
                     </a>
                 </div>
             </nav>

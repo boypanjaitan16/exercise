@@ -165,7 +165,7 @@ function EditProfile({session}){
                     {errors.email && (<small className='text-red-500'>{errors.email.message}</small>)}
                 </div>
                 <div>
-                    <Button loading={loading} disabled={loading} htmlType='submit' type='primary' size='large' shape='round'>
+                    <Button loading={loading} htmlType='submit' type='primary' size='large' shape='round'>
                         Save Changes
                     </Button>
                 </div>

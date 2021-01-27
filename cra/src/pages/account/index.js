@@ -6,6 +6,7 @@ import Activities from './Activities'
 import Profile from './Profile'
 import EditProfile from './EditProfile'
 import AddRecord from './AddRecord'
+import Category from './category'
 
 export default function AccountRouters({match}){
     return (
@@ -16,6 +17,7 @@ export default function AccountRouters({match}){
                 <Route path={`${match.url}/profile/edit`} component={EditProfile}/>
                 <Route path={`${match.url}/profile`} component={Profile}/>
                 <Route path={`${match.url}/add-record`} component={AddRecord}/>
+                <Route path={`${match.url}/category`} component={Category}/>
             </Switch>
         </PageWrapper>
     )

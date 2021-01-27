@@ -20,7 +20,19 @@ const userSchema    = new Schema({
     avatarExt   : {
         required    : false,
         type        : String
-    }
+    },
+    activities : [
+        {
+            type: Schema.Types.ObjectId,
+            ref :'Activity'
+        }
+    ],
+    categories  : [
+        {
+            type    : Schema.Types.ObjectId,
+            ref : 'Category'
+        }
+    ]
 }, {
     timestamps  : true
 })
