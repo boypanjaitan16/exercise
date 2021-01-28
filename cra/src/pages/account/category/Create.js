@@ -2,6 +2,7 @@ import { Button, message } from 'antd'
 import React, {useState} from 'react'
 import {useForm} from 'react-hook-form'
 import {useHistory} from 'react-router-dom'
+import ChildWrapper from '../../../components/ChildWrapper'
 
 export default function CreateCategory(){
     const history   = useHistory()
@@ -14,14 +15,14 @@ export default function CreateCategory(){
         window.axios.post('/categories/create', params)
             .then(res => {
                 setLoading(false)
-                message.success('Category is created succesfully')
+                message.success(`Category "${params.name}" is created`)
                 history.push('/account/category')
             })
             .catch(() => setLoading(false))
     } 
 
     return (
-        <div>
+        <ChildWrapper>
             <form onSubmit={handleSubmit(submitForm)} className='flex flex-col space-y-3'>
                 <div>
                     <label>Category Name</label>
@@ -58,7 +59,6 @@ export default function CreateCategory(){
                     </Button>
                 </div>
             </form>
-
-        </div>
+        </ChildWrapper>
     )
 }

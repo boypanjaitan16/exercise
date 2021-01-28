@@ -6,7 +6,7 @@ function PrivateRoute({session, path, component}){
         return (<Route path={path} component={component}/>)
     }
 
-    return (<Redirect to={'/auth/sign-in'}/>)
+    return (<Redirect to={'/'}/>)
 }
 
 const mapStateToProps = (state, props) => {

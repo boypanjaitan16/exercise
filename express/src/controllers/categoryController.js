@@ -3,6 +3,7 @@ const {responseError, responseFailed, responseSuccess} = require('../helpers/aut
 
 const Category  = require('../models/Category')
 const User      = require('../models/User')
+const Activity  = require('../models/Activity')
 
 exports.index = async (req, res) => {
     try{
@@ -10,12 +11,7 @@ exports.index = async (req, res) => {
 
         const user      = await User.findById(userId).populate('categories')
         const result    = await Promise.all(user.categories.map(async item => {
-
-            const cat   = await Category.findById(item.id).populate('activities')
-
-            item.activities = cat.activities;
-
-            return Promise.resolve(item)
+            return Promise.resolve(await Category.findById(item.id).populate('activities'))
         }));
 
         responseSuccess(res, result)
@@ -60,14 +56,70 @@ exports.createValidation = [
     })
 ]
 
-exports.show = (req, res) => {
+exports.show = async (req, res) => {
+    try{
+        const {id}  = req.params
+        const cat   = await Category.findById(id).populate('activities');
 
+        responseSuccess(res, cat)
+    }
+    catch(err){
+        responseError(res, err)
+    }
 }
 
-exports.update = (req, res) => {
+exports.update = async (req, res) => {
+    try{
+        const errors    = validationResult(req)
+        if(!errors.isEmpty()){
+            responseFailed(res, errors.array())
+            return;
+        }
 
+        const {id}  = req.params
+        const {name, description}   = req.body
+        const cat   = await Category.findById(id)
+
+        cat.name    = name;
+        cat.description = description;
+
+        await cat.save()
+
+        responseSuccess(res, cat)
+    }
+    catch(err){
+        responseError(res, err)
+    }
 }
 
-exports.destroy = (req, res) => {
+exports.updateValidation = [
+    body('name', 'Category name cannot be empty').notEmpty().bail().custom((name, {req}) => {
+        return Category.findOne({name}).then(category => {
+            if(category && category.id !== req.params.id){
+                return Promise.reject('You already have a category with this name')
+            }
+        })
+    })
+]
 
+exports.destroy = async (req, res) => {
+    try{
+        const {userId}  = req.user
+        const {id}      = req.params
+
+        const category  = await Category.findById(id).populate('activities')
+
+        if(category){
+            await Promise.all(category.activities.map(async activity => {
+                await Activity.findById(activity.id).remove()
+            }))
+
+            await category.remove()
+        }
+
+        await this.index(req, res)
+    }
+    catch(err){
+        responseError(res, err)
+    }
 }

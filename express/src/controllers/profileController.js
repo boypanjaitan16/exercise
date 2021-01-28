@@ -6,6 +6,7 @@ const multer    = require('multer')
 const path      = require('path')
 const bycript   = require('bcryptjs')
 const fs        = require('fs')
+
 const User      = require('../models/User')
 
 const upload = multer({

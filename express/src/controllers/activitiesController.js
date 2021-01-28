@@ -10,7 +10,11 @@ exports.index = async (req, res) => {
         const {userId}  = req.user
         const user      = await User.findById(userId).populate('activities')
 
-        responseSuccess(res, user.activities)
+        const result    = await Promise.all(user.activities.map(async item => {
+            return Promise.resolve(await Activity.findById(item.id).populate('category'))
+        }))
+
+        responseSuccess(res, result)
     }
     catch(err){
         responseError(res, err)
@@ -70,12 +74,11 @@ exports.destroy = async (req, res) => {
         const id    = req.params.id
         const obj   = await Activity.findOne({_id: id})
 
-        obj.remove()
+        if(obj){
+            await obj.remove()
+        }
 
-        const {userId}  = req.user
-        const user      = await User.findById(userId).populate('activities')
-
-        responseSuccess(res, user.activities)
+        await this.index(req, res)
     }
     catch(err){
         responseError(res, err)

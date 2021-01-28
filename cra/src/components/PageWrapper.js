@@ -43,13 +43,13 @@ function PageWrapper({user, children}){
             icon    : <HomeOutlined/>
         },
         {
-            title   : 'Category',
+            title   : 'Categories',
             link    : '#/account/category',
             icon    : <FolderViewOutlined/>
         },
         {
             title   : 'Activities',
-            link    : '#/account/activities',
+            link    : '#/account/activity',
             icon    : <SettingOutlined/>
         },
         {
@@ -134,7 +134,7 @@ function PageWrapper({user, children}){
                 </div>
                 <div className='flex-none md:ml-5 flex items-center'>
                     <a 
-                        href='#/account/add-record' 
+                        href='#/account/activity/add' 
                         onClick={() => clickSideLink(-1)} 
                         className='rounded-full hidden sm:flex sm:items-center bg-blue-500 px-5 py-2 hover:bg-blue-600 hover:text-white text-white'>
                         <PlusCircleTwoTone className='mr-2'/> Add Activity
@@ -142,7 +142,7 @@ function PageWrapper({user, children}){
                     <a 
                         onClick={() => clickSideLink(-1)}
                         className='md:hidden text-2xl text-white flex items-center hover:text-white' 
-                        href='#/account/add-record'>
+                        href='#/account/activity/add'>
                         <PlusCircleTwoTone/>
                     </a>
                 </div>
@@ -170,8 +170,9 @@ function PageWrapper({user, children}){
                 </div>
                 <div 
                     style={{marginLeft: openDrawer ? 0 : sideWidth, height: sideHeight === 0 ? `calc(100vh - ${navHeight}px)` : sideHeight}} 
-                    className='flex-grow p-5 md:pr-8 block'>
+                    className='flex-grow block'>
                     {children}
+                    
                 </div>
             </div>
         </>

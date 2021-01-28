@@ -17,6 +17,7 @@
     "autoprefixer": "^9.8.6",
     "axios": "^0.21.1",
     "date-fns": "^2.16.1",
+    "firebase": "^8.2.4",
     "js-cookie": "^2.2.1",
     "netlify-cli": "^3.4.2",
     "next": "^10.0.5",
