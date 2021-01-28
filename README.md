@@ -4,11 +4,11 @@ This project contains rich JS stack build on multiple services
 
 ## Front-end
 
-react.js, next.js, tailwindcss
+react.js, next.js, redux, tailwindcss, material-ui, ant-design
 
 ## Back-end
 
-express.js, mongodb
+express.js, mongodb, mongoose
 
 ## DevOps
 
