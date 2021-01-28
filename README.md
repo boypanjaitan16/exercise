@@ -1,6 +1,6 @@
-# Getting Started with this project
+# Getting started with this project
 
-This project contains rich JS stack build on multiple services
+This project is for learning MERN stack purpose, it's contains rich JS stack build on multiple services
 
 ## Front-end
 
@@ -21,20 +21,7 @@ and also make sure your `docker-compose` support for v`3.8`
 
 ## Build services
 
-before building it, make sure you have configured `.env` variables available such as
-```
-NODE_PORT=8000
-REACT_PORT=5000
-NEXT_PORT=3000
-MONGO_PORT=27018
-MONGO_USERNAME=root
-MONGO_PASSWORD=dbpassword
-MONGO_DB=admin
-MONGO_HOST=db
-
-APP_NAME="Exercise Tracker"
-ACCESS_TOKEN_SECRET=xxxxx
-```
+before building it, make sure you have `.env` configured, see `.env.example` for information 
 then run `docker-compose up --build` to build
 
 ## Up and Down
