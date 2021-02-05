@@ -17,7 +17,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(cors({
-  origin  : ['http://127.0.0.1:5000', 'http://127.0.0.1:8000', 'http://127.0.0.1:3000', 'https://boy-activity-tracker.netlify.app'],
+  origin  : [
+    'http://127.0.0.1:5000', 'http://127.0.0.1:8000', 'http://127.0.0.1:3000', 
+    'https://boy-activity-tracker.netlify.app', 'https://tracker.boypanjaitan.com'],
   credentials : true
 }))
 app.use(logger('dev'));
