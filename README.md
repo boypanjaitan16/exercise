@@ -1,6 +1,7 @@
 # Getting started with this project
 
-This project is for learning MERN stack purpose, it's contains rich JS stack build on multiple services
+This project is for learning MERN stack purpose, it's contains rich JS stack build on multiple services.\
+Try it live on [tracker.boypanjaitan.com](https://tracker.boypanjaitan.com)
 
 ## Front-end
 

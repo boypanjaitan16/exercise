@@ -1,3 +1,3 @@
 node_modules/
-public/avatar/*.png
-public/avatar/*.jpg
+public/avatar/*
+!*/public/avatar/.gitignore
