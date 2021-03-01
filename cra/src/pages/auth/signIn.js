@@ -17,7 +17,7 @@ export default function SignIn(){
     const submit = (params) => {
         setLoading(true)
         
-        window.axios.post('http://127.0.0.1:8008/api/auth/login', params)
+        window.axios.post('/auth/login', params)
             .then(res => {
                 const {data}    = res.data
 

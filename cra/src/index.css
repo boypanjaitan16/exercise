@@ -6,6 +6,10 @@
     body a {
         @apply text-black
     }
+
+    form label{
+        @apply font-semibold
+    }
 }
 @layer components{
     .a-sidebar-item{
@@ -13,9 +17,5 @@
     }
     .a-input-text{
         @apply px-3 py-2 mt-1 w-full border border-gray-300 rounded-md focus:ring focus:ring-blue-500 focus:bg-white focus:outline-none
-    }
-
-    form label{
-        @apply font-semibold
     }
 }
